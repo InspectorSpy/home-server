@@ -98,6 +98,17 @@ Access the CasaOS app store and install:
 # The base Immich app didn't work for me, so I used the "Without machine learning" version from the CasaOS app store
 
 #### Crafty Controller (Minecraft management)
+- Web-based Minecraft server control panel
+- Simplifies server management and mod installation
+
+### 5. Set up minecraft server
+
+In Crafty Controller:
+
+1. **Create new server**
+    - Type: Fabric (for mod support)
+    - Version: Latest stable (1.21.11 for me)
+    - RAM: 8 - 10GB for modded, 2 - 4GB for vanilla
     
 Journey of setting up a home server on an old laptop
 
