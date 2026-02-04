@@ -57,14 +57,48 @@ I use [Ventoy](Link here) you don't have to, go with Rufus or Balena Etcher
     - Enable SSH server during installation
     - Set up user account with sudo access
 
-## Initial setup
+### 2. Install CasaOS
 
-### Network configuration
-1. **Router setup (MikroTik)**
-    - Port 2: Main PC
-    - Port 3: Server laptop
-    - Enabled ether3 interface
-    - Removed ether2 and ether3 from WAN interface list (these were default for some reason)
+```bash
+# Update system
+sudo apt update && sudo apt upgrade -y
+
+# Install CasaOS
+curl -fsSL https://get.casaos.io | sudo bash
+
+# If curl is not installed, install it
+sudo apt install curl
+```
+
+Access CasaOS at: `http://YOUR_SERVER_IP`
+
+### 3. Configure network
+
+**Set static IP:**
+- Configure DHCP reservation in your router
+- Map your server's MAC address to a fixed IP (e.g., `192.168.1.100`)
+
+**For MikroTik users:**
+```
+
+# Ensure server port is in bridge, not WAN interface list
+# Bridge -> ports -> verify your port is added
+# Interface List -> ensure only WAN port in "WAN" list
+```
+
+### 4. Install services via CasaOS
+
+Access the CasaOS app store and install:
+
+#### Immich (Photo backup)
+- Configure storage path to your data drive
+- Install mobile apps ([iOS] (https://apps.apple.com/app/immich/id1613945652) / [Android] (https://play.google.com/store/apps/details?id=app.alextran.immich))
+- Enable auto-upload in mobile app settings
+# Note:
+# The base Immich app didn't work for me, so I used the "Without machine learning" version from the CasaOS app store
+
+#### Crafty Controller (Minecraft management)
+    
 Journey of setting up a home server on an old laptop
 
 Plans for the server:
