@@ -80,7 +80,6 @@ Access CasaOS at: `http://YOUR_SERVER_IP`
 
 **For MikroTik users:**
 ```
-
 # Ensure server port is in bridge, not WAN interface list
 # Bridge -> ports -> verify your port is added
 # Interface List -> ensure only WAN port in "WAN" list
@@ -108,12 +107,115 @@ In Crafty Controller:
 1. **Create new server**
     - Type: Fabric (for mod support)
     - Version: Latest stable (1.21.11 for me)
-    - RAM: 8 - 10GB for modded, 2 - 4GB for vanilla
-    
-Journey of setting up a home server on an old laptop
+    - RAM: 8 - 10GB for modded, 4 - 6GB for vanilla
 
-Plans for the server:
-be able to connect with ssh
-Immich
-minecraft server
-Tailscale
+2. **Install performance mods** (server-side only. clients don't need them):
+    ```properties
+    online-mode=true        # Requires legitimate accounts
+    white-list=true         # Only whitelisted players
+    enable-rcon=false       # Disable remote console
+    ```
+
+4. **Whitelist players** via console:
+    ```
+    whitelist add Playername
+    ```
+
+### 6. Port forwarding
+
+**For minecraft public access:**
+
+In your router's settings:
+- Protocol: TCP
+- External port: 25565
+- Internal IP: Your server's static IP
+- Internal port: 25565
+
+**Security best practices:**
+- Only forward port 25565 (nothing else)
+- Use Minecraft's whitelist feature
+- Keep `online-mode=true` to prevent cracked clients
+- Consider using Tailscale instead for friends-only servers
+
+### 7. Install Tailscale (Secure Remote Access)
+
+**Option A: CasaOS app store**
+- Search for Tailscale and install
+- Follow authentication prompts
+
+**Option B: Native installation**
+```
+bash
+curl -fsSL https://tailscale.com/install.sh | sh
+sudo tailscale up
+```
+
+**Install on your devices:**
+- [Download Tailscale](https://tailscale.com/download) for desktop/mobile
+- Sign in with the same account
+- Access your server securely from anywhere
+
+## Access points
+
+### Local network
+```
+CasaOS:         http://SERVER_IP
+Immich:         http://SERVER_IP:2283
+Crafty:         http://SERVER_IP:8443
+Minecraft:      SERVER_IP:25565
+SSH:            ssh username@100.x.x.x
+```
+
+### Remote (via Tailscale)
+```
+CasaOS:         http://100.x.x.x
+Immich:         http://100.x.x.x:2283
+Crafty:         http://100.x.x.x:8443
+SSH:            ssh username@100.x.x.x
+```
+
+### Public
+```
+Minecraft:      YOUR_PUBLIC_IP:25565
+```
+
+## Security best practices
+
+1. **Keep system updated:**
+    ```bash
+    sudo apt update && sudo apt upgrade -y
+    ```
+
+2. **Use strong passwords** for all services
+
+3. **Enable firewall** (if not using CasaOS defaults):
+    ```bash
+    sudo apt install ufw
+    sudo ufw allow 22/tcp       # SSH
+    sudo ufw allow 25565/tcp    # Minecraft
+    sudo ufw enable
+    ```
+
+4. **Regular backups (see next section)
+
+5. **Monitor temperatures** - laptops can overhear under sustained load
+
+## Backup strategy (Recommended)
+
+**Critical data to backup:**
+- Immich photo library
+- Minecraft world files
+- Important configurations
+
+**Options:**
+- External USB drive with automated rsync/Duplicati
+- Cloud backup (Backblaze B2, Wasabi)
+- Remote backup to another location via Tailscale
+
+**Quick backup setup with rsync:**
+```bash
+# Example: backup to external drive
+sudo rsync -av /path/to/data /mnt/backup/
+```
+
+## Maintenance
