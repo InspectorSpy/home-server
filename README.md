@@ -303,6 +303,7 @@ This "guide" is provided as-is under the MIT License. Use at your own risk.
 - [Fabric](https://fabricmc.net/) - Lightweight Minecraft modding platform
 
 ### An easy to follow video by Tech By Matt
+#### Building a $100 Minecraft Server! (2025)
 https://youtu.be/ceYeDX5WTms?si=uaxepUMqt0OfrHX4
 
 ## Tech stack
