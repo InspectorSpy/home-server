@@ -302,6 +302,9 @@ This "guide" is provided as-is under the MIT License. Use at your own risk.
 - [Tailscale](https://tailscale.com/) - Secure networking made simple
 - [Fabric](https://fabricmc.net/) - Lightweight Minecraft modding platform
 
+### An easy to follow video by Tech By Matt
+https://youtu.be/ceYeDX5WTms?si=uaxepUMqt0OfrHX4
+
 ## Tech stack
 
 ![Debian](https://img.shields.io/badge/Debian-D70A53?style=for-the-badge&logo=debian&logoColor=white)
