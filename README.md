@@ -1,4 +1,4 @@
-# Old gaming laptop to home-server. A setup journey.
+# Old gaming laptop to Home Server. A Setup Journey.
 
 A tale of transforming an old gaming laptop into a decently powerful, self-hosted home server running photo backup, Minecraft server, and more.
 
@@ -17,11 +17,11 @@ This server is an old HP Pavilion gaming laptop with the following specs:
 - **GPU:** NVIDIA GTX 1660 Ti Max-Q
 - **RAM:** 16GB
 - **Storage:** 512GB NVMe (OS) + 1TB 2.5" SSD (data)
+
 The router I use:
-- **Network:** MikroTIk Hex Refresh router (any router that supports port forwarding works)
+- **Network:** MikroTik Hex Refresh router (any router that supports port forwarding works)
 
 **Minimum recommended:**
-
 - Dual-core or quad-core CPU
 - 8GB RAM
 - 256GB+ storage
@@ -36,21 +36,21 @@ The router I use:
 - Ensure good ventilation to prevent overheating
 - Regular maintenance and monitoring are pretty essential
 
-## Prerequisities
+## Prerequisites
 
 - A laptop, almost any will do that has decent specs
 - USB drive (8GB+) for OS installation
-- Basic familiarity with command line (You will manage without, google helps)
-- Router with port forwading capability (almost all routers these days support it)
+- Basic familiarity with command line (You will manage without, Google helps)
+- Router with port forwarding capability (almost all routers these days support it)
 - Static IP or DHCP reservation on your router 
 
 ## Quick start
 
-### 1. Install Debian/Ubuntu (I used debian 13)
+### 1. Install Debian/Ubuntu (I used Debian 13)
 
 1. Download [Debian](https://www.debian.org/distrib/netinst)/[Ubuntu](https://ubuntu.com/download/server) (latest stable or testing)
 2. Flash to USB using [Rufus](https://rufus.ie/) (Windows) or [Balena Etcher](https://www.balena.io/etcher/).
-I use [Ventoy](https://www.ventoy.net/en/index.html) you don't have to, go with Rufus or Balena Etcher
+    I use [Ventoy](https://www.ventoy.net/en/index.html) you don't have to, go with Rufus or Balena Etcher
 3. Boot from USB and install:
     - **Skip desktop environment** (headless server basically)
     - Enable SSH server during installation
@@ -92,8 +92,8 @@ Access the CasaOS app store and install:
 - Configure storage path to your data drive
 - Install mobile apps ([iOS](https://apps.apple.com/app/immich/id1613945652) / [Android](https://play.google.com/store/apps/details?id=app.alextran.immich))
 - Enable auto-upload in mobile app settings
-# Note:
-# The base Immich app didn't work for me, so I used the "Without machine learning" version from the CasaOS app store
+
+**Note:** The base Immich app didn't work for me, so I used the "Without machine learning" version from the CasaOS app store
 
 #### Crafty Controller (Minecraft management)
 - Web-based Minecraft server control panel
@@ -109,11 +109,16 @@ In Crafty Controller:
     - RAM: 8 - 10GB for modded, 4 - 6GB for vanilla
 
 2. **Install performance mods** (server-side only. clients don't need them):
-    ```properties
-    online-mode=true        # Requires legitimate accounts
-    white-list=true         # Only whitelisted players
-    enable-rcon=false       # Disable remote console
-    ```
+   - [Fabric API](https://modrinth.com/mod/fabric-api) (required)
+   - [Lithium](https://modrinth.com/mod/lithium) (optimization)
+   - [FerriteCore](https://modrinth.com/mod/ferrite-core) (memory)
+
+3. **Configure Security** in `server.properties`:
+   ```properties
+   online-mode=true          # Requires legitimate accounts
+   white-list=true           # Only whitelisted players
+   enable-rcon=false         # Disable remote console
+   ```
 
 4. **Whitelist players** via console:
     ```
@@ -143,8 +148,7 @@ In your router's settings:
 - Follow authentication prompts
 
 **Option B: Native installation**
-```
-bash
+```bash
 curl -fsSL https://tailscale.com/install.sh | sh
 sudo tailscale up
 ```
@@ -162,7 +166,7 @@ CasaOS:         http://SERVER_IP
 Immich:         http://SERVER_IP:2283
 Crafty:         http://SERVER_IP:8443
 Minecraft:      SERVER_IP:25565
-SSH:            ssh username@100.x.x.x
+SSH:            ssh username@SERVER_IP
 ```
 
 ### Remote (via Tailscale)
@@ -190,14 +194,14 @@ Minecraft:      YOUR_PUBLIC_IP:25565
 3. **Enable firewall** (if not using CasaOS defaults):
     ```bash
     sudo apt install ufw
-    sudo ufw allow 22/tcp       # SSH
-    sudo ufw allow 25565/tcp    # Minecraft
+    sudo ufw allow 22/tcp    # SSH
+    sudo ufw allow 25565/tcp # Minecraft
     sudo ufw enable
     ```
 
-4. **Regular backups (see next section)
+4. **Regular backups** (see next section)
 
-5. **Monitor temperatures** - laptops can overhear under sustained load
+5. **Monitor temperatures** - laptops can overheat under sustained load
 
 ## Backup strategy (Recommended)
 
@@ -236,20 +240,20 @@ sudo rsync -av /path/to/data /mnt/backup/
 
 1. **Pre-generate chunks** to reduce lag:
     ```
-    # In crafty console
+    # In Crafty console
     chunky radius 5000
     chunky start
     ```
 
 2. **Adjust view distance** in `server.properties`:
     ```properties
-    view-distance=10        # Lower = better performance
+    view-distance=10    # Lower = better performance
     simulation-distance=8
     ```
 
 3. **Monitor server TPS** (should be 20):
     ```
-    # In crafty console
+    # In Crafty console
     tps
     ```
 
@@ -267,8 +271,8 @@ sudo rsync -av /path/to/data /mnt/backup/
 - Clean dust from vents
 - Reduce Minecraft server RAM allocation
 - Limit concurrent services
-- Clean and re-apply thermalpaste (Advanced tbh)
-- Consider undervolting CPU (Advanced aswell)
+- Clean and re-apply thermal paste (Advanced tbh)
+- Consider undervolting CPU (Advanced as well)
 
 ### Out of disk space
 - Check disk usage: `df -h`
@@ -282,6 +286,7 @@ sudo rsync -av /path/to/data /mnt/backup/
 - Ensure firewall isn't blocking connections
 
 ## Additional Services to consider
+
 - **Jellyfin/Plex** - Media server
 - **Vaultwarden** - Self-hosted password manager
 - **Pi-hole** - Network-wide ad blocking
