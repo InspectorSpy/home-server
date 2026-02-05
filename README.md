@@ -48,8 +48,7 @@ The router I use:
 
 ### 1. Install Debian/Ubuntu (I used debian 13)
 
-1. Download [Debian/Ubuntu]
-(https://www.debian.org/distrib/netinst)/(https://ubuntu.com/download/server) (latest stable or testing)
+1. Download [Debian/Ubuntu](https://www.debian.org/distrib/netinst)/(https://ubuntu.com/download/server) (latest stable or testing)
 2. Flash to USB using [Rufus](https://rufus.ie/) (Windows) or [Balena Etcher] (https://www.balena.io/etcher/)
 I use [Ventoy](Link here) you don't have to, go with Rufus or Balena Etcher
 3. Boot from USB and install:
@@ -91,7 +90,7 @@ Access the CasaOS app store and install:
 
 #### Immich (Photo backup)
 - Configure storage path to your data drive
-- Install mobile apps ([iOS] (https://apps.apple.com/app/immich/id1613945652) / [Android] (https://play.google.com/store/apps/details?id=app.alextran.immich))
+- Install mobile apps ([iOS](https://apps.apple.com/app/immich/id1613945652) / [Android](https://play.google.com/store/apps/details?id=app.alextran.immich))
 - Enable auto-upload in mobile app settings
 # Note:
 # The base Immich app didn't work for me, so I used the "Without machine learning" version from the CasaOS app store
