@@ -272,4 +272,42 @@ sudo rsync -av /path/to/data /mnt/backup/
 - Consider undervolting CPU (Advanced aswell)
 
 ### Out of disk space
-- Check disk usage: ``
+- Check disk usage: `df -h`
+- Move Immich storage to larger drive
+- Set up Immich storage quotas
+- Clean up old Docker images: `docker system prune`
+
+### Can't access CasaOS remotely
+- Verify Tailscale is running: `sudo tailscale status`
+- Check if both devices are connected to Tailscale
+- Ensure firewall isn't blocking connections
+
+## Additional Services to consider
+- **Jellyfin/Plex** - Media server
+- **Vaultwarden** - Self-hosted password manager
+- **Pi-hole** - Network-wide ad blocking
+- **Nextcloud** - File sync and collaboration
+- **Home Assistant** - Home automation
+- **Nginx Proxy Manager** - Reverse proxy with automatic HTTPS
+
+## License
+
+This "guide" is provided as-is under the MIT License. Use at your own risk.
+
+## Acknowledgements
+
+- [CasaOS](https://casaos.io/) - Easy home server management
+- [Immich](https://immich.app) - Self-hosted photo backup alternative to Google Photos or Apple iCloud
+- [Crafty Controller](https://craftycontroller.com/) - Minecraft server management
+- [Tailscale](https://tailscale.com/) - Secure networking made simple
+- [Fabric](https://fabricmc.net/) - Lightweight Minecraft modding platform
+
+## Tech stack
+
+![Debian](https://img.shields.io/badge/Debian-D70A53?style=for-the-badge&logo=debian&logoColor=white)
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+![Minecraft](https://img.shields.io/badge/Minecraft-62B47A?style=for-the-badge&logo=minecraft&logoColor=white)
+
+---
+
+**Happy self-hosting, go nuts!**
