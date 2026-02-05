@@ -234,7 +234,7 @@ sudo rsync -av /path/to/data /mnt/backup/
 ### Monitoring tools (optional)
 - [Uptime Kuma](https://github.com/louislam/uptime-kuma) - Service monitoring
 - [Glances](https://nicolargo.github.io/glances/) - System monitoring
-- [Netdata](https://www.netdata.cloud/) - Real-time metrics
+- [Netdata](https://www.netdata.cloud/) - Real-time metrics, requires sign up
 
 ## Minecraft performance tips
 
@@ -305,9 +305,6 @@ This "guide" is provided as-is under the MIT License. Use at your own risk.
 - [Crafty Controller](https://craftycontroller.com/) - Minecraft server management
 - [Tailscale](https://tailscale.com/) - Secure networking made simple
 - [Fabric](https://fabricmc.net/) - Lightweight Minecraft modding platform
-
-### An easy to follow video by Tech By Matt
-[Building a $100 Minecraft Server! (2025)](https://youtu.be/ceYeDX5WTms?si=uaxepUMqt0OfrHX4)
 
 ## Tech stack
 
