@@ -108,10 +108,13 @@ In Crafty Controller:
     - Version: Latest stable (1.21.11 for me)
     - RAM: 8 - 10GB for modded, 4 - 6GB for vanilla
 
-2. **Install performance mods** (server-side only. clients don't need them):
+2. **Install performance mods** (server-side only):
    - [Fabric API](https://modrinth.com/mod/fabric-api) (required)
    - [Lithium](https://modrinth.com/mod/lithium) (optimization)
    - [FerriteCore](https://modrinth.com/mod/ferrite-core) (memory)
+   - [C2ME](https://modrinth.com/mod/c2me-fabric) - (chunk performance)
+   - [Krypton](https://www.curseforge.com/minecraft/mc-mods/krypton) - (network)
+   - [ServerCore](https://www.curseforge.com/minecraft/mc-mods/servercore) - (optimization)
 
 3. **Configure Security** in `server.properties`:
    ```properties
