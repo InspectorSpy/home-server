@@ -49,7 +49,7 @@ The router I use:
 ### 1. Install Debian/Ubuntu (I used debian 13)
 
 1. Download [Debian/Ubuntu](https://www.debian.org/distrib/netinst)/(https://ubuntu.com/download/server) (latest stable or testing)
-2. Flash to USB using [Rufus](https://rufus.ie/) (Windows) or [Balena Etcher] (https://www.balena.io/etcher/)
+2. Flash to USB using [Rufus](https://rufus.ie/) (Windows) or [Balena Etcher](https://www.balena.io/etcher/)
 I use [Ventoy](Link here) you don't have to, go with Rufus or Balena Etcher
 3. Boot from USB and install:
     - **Skip desktop environment** (headless server basically)
