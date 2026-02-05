@@ -219,3 +219,57 @@ sudo rsync -av /path/to/data /mnt/backup/
 ```
 
 ## Maintenance
+
+### Regular tasks
+- Monitor CPU/RAM/disk usage in CasaOS
+- Check laptop temperatures (especially under load)
+- Update Debian monthly: `sudo apt update && sudo apt upgrade`
+- Update Minecraft server and mods periodically
+- Check Immich for failed uploads
+- Verify backups are working
+
+### Monitoring tools (optional)
+- [Uptime Kuma](https://github.com/louislam/uptime-kuma) - Service monitoring
+- [Glances](https://nicolargo.github.io/glances/) - System monitoring
+- [Netdata](https://www.netdata.cloud/) - Real-time metrics
+
+## Minecraft performance tips
+
+1. **Pre-generate chunks** to reduce lag:
+    ```
+    # In crafty console
+    chunky radius 5000
+    chunky start
+    ```
+
+2. **Adjust view distance** in `server.properties`:
+    ```properties
+    view-distance=10        # Lower = better performance
+    simulation-distance=8
+    ```
+
+3. **Monitor server TPS** (should be 20):
+    ```
+    # In crafty console
+    tps
+    ```
+
+## Troubleshooting
+
+### Can't connect to Minecraft server from internet
+- Verify port forwarding is configured correctly
+- Check if ISP blocks port 25565 (some do)
+- Test with online port checker: [YouGetSignal](https://www.yougetsignal.com/tools/open-ports/)
+- Confirm server is actually running in Crafty
+- Try connecting locally first to rule out server issues
+
+### Laptop overheating (applicable to some old PCs)
+- Elevate laptop or use cooling pad
+- Clean dust from vents
+- Reduce Minecraft server RAM allocation
+- Limit concurrent services
+- Clean and re-apply thermalpaste (Advanced tbh)
+- Consider undervolting CPU (Advanced aswell)
+
+### Out of disk space
+- Check disk usage: ``
