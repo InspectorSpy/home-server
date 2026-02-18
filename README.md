@@ -297,6 +297,142 @@ sudo rsync -av /path/to/data /mnt/backup/
 - **Home Assistant** - Home automation
 - **Nginx Proxy Manager** - Reverse proxy with automatic HTTPS
 
+## Obsidian LiveSync (self-hosted vault sync)
+
+A self-hosted alternative to Obsidian Sync, using CouchDB as the backend. Your notes never leave your server.
+
+> **Note:** The Obsidian app in the CasaOS app store requires an HTTPS connection to function, which adds unnecessary complexity. The LiveSync setup is done entirely through the native Obsidian desktop or mobile client on your own devices. Nothing to install on the server beyond CouchDB.
+
+### Prerequisites
+
+- A domain name with DNS managed by Cloudflare
+- Nginx Proxy Manager installed (available in CasaOS app store)
+- Port 80 and 443 forwarded to your server in your router
+- Static IP (or DDNS)
+
+### 1. Install CouchDB
+
+CouchDB isn't in the CasaOS app store, so install it via docker:
+
+```bash
+docker run -d \
+    --name couchdb \
+    -e COUCHDB_USER=admin \
+    -e COUCHDB_PASSWORD=yourpassword \
+    -p 5984:5984 \
+    -v /DATA/AppData/couchdb:/opt/couchdb/data \
+    --restart unless-stopped \
+    couchdb
+```
+
+Verify it's running:
+```bash
+curl http://localhost:5984
+```
+
+Should return a JSON response with CouchDB version info.
+
+### 2. Set up a subdomain
+
+In Cloudflare DNS, add a new A record:
+- **Name:** `obsidian` (or whatever you prefer)
+- **value:** Your public static IP
+- **Proxy status:** DNS only (grey cloud) - NPM handles SSL itself, Cloudflare proxying will interfere. This requires port 443 to be forwarded on your router (see step 5 before testing).
+
+### 3. Configure Nginx Proxy Manager
+
+In NPM, go to **Hosts -> Proxy Hosts -> Add Proxy Host**:
+
+**Details tab:**
+- Domain: `obsidian.yourdomain.com`
+- Scheme: `http`
+- Forward Hostname: your server's LAN IP
+- Forward Port: `5984`
+- Enable **Websockets Support**
+
+**SSL tab:**
+- Request a new Let's Encrypt certificate
+- Enable **Use DNS Challenge**
+- Provider: Cloudflare
+- Paste your Cloudflare API token (see below)
+- Enable **Force SSL**
+
+**Getting Cloudflare API token:**
+1. Go to Cloudflare -> My Profile -> API Tokens -> Create Token
+2. Use the **Edit zone DNS** template
+3. Under Zone Resources, select your specific domain zone
+4. Create and copy the token
+
+### 4. Configure CouchDB CORS
+
+Access CouchDB admin at `http://YOUR_SERVER_IP:5984/_utils` and log in.
+
+Go to **Configuration -> CORS** and:
+- Set Origin to **All domains (*)**
+- Enable CORS
+
+### 5. Forward ports on your router
+
+Add dst-nat rules for ports 80 and 443 pointing to your server's LAN IP. Make sure to set the In. Interface to your WAN interface.
+
+### 6. Install and configure LiveSync in Obsidian
+
+1. Install the **Self-hosted LiveSync** community plugin
+2. Go to plugin settings and choose **Manual Setup**
+3. Enter:
+    - **URL:** `https://obsidian.yourdomain.com`
+    - **Username:** your CouchDB admin username
+    - **Password:** your CouchDB admin password
+    - **Database name:** `obsidian` (or any lowercase name, LiveSync creates it automagically)
+4. Click **Detect and Fix CouchDB Issues** to auto-configure remaining settings
+5. Click **Test settings and Continue**
+
+### 7. Verify it's working
+
+Check CouchDB at `http://YOUR_SERVER_IP:5984` - you should see an `obsidian` database.
+Click into it and you'll see documents (with hashed IDs) representing your vault files.
+
+### Setting up additional devices
+
+On your first device, open the Obsidian command palette and run:
+> **"Copy settings as a new Setup URI"**
+
+On each additional device, install the LiveSync plugin and paste the Setup URI when prompted - much faster than manual setup.
+
+### Troubleshooting (I did some, a lot.)
+
+**"Failed to connect to server" in LiveSync:**
+- Check that port 443 is forwarded correctly in your router
+- Ensure the Cloudflare proxy is disabled (DNS only)
+- verify NPM proxy host is using `http` scheme to forward to CouchDB
+
+**CORS errors in Obsidian:**
+- Go back to CouchDB `/_utils` and confirm CORS is set to All domains (*)
+
+**502 Bad Gateway from NPM:**
+- Check CouchDB is running: `docker ps | grep couchdb`
+- Verify the forward hostname and port in NPM are correct
+
+**Works on mobile data but not on home WiFi (Hairpin NAT):**
+
+This is a decently common issue with home routers. When you try to reach your external domain from inside your own network, the router doesn't route the traffic back internally. Fix it by adding a static DNS entry in MikroTik:
+
+1. Go to **IP -> DNS -> Static -> New**
+2. Set **Name** to `obsidian.yourdomain.com`
+3. Set **Type** to `A`
+4. Set **Address** to your server's LAN IP
+5. Leave Address list empty
+6. Click OK
+
+This makes local devices resolve the domain directly to your server's LAN IP instead of going out through the internet.
+
+### Access points
+
+```
+CouchDB admin:  http://SERVER_IP:5984/_utils
+LiveSync sync:  https://obsidian.yourdomain.com
+```
+
 ## License
 
 This "guide" is provided as-is under the MIT License. Use at your own risk.
