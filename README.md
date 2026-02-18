@@ -446,6 +446,12 @@ This "guide" is provided as-is under the MIT License. Use at your own risk.
 - [Crafty Controller](https://craftycontroller.com/) - Minecraft server management
 - [Tailscale](https://tailscale.com/) - Secure networking made simple
 - [Fabric](https://fabricmc.net/) - Lightweight Minecraft modding platform
+- [Sure Finance](https://github.com/we-promise/sure) - Self-hosted personal finance and wealth management
+- [Enable Banking](https://enablebanking.com) - PSD2-compliant European bank data access
+- [Obsidian](https://obsidian.md) - Knowledge base and note-taking app
+- [Self-hosted LiveSync](https://github.com/vrtmrz/obsidian-livesync) - Self-hosted Obsidian vault sync plugin
+- [CouchDB](https://couchdb.apache.org) - Database backend for LiveSync
+- [Nginx Proxy Manager](https://nginxproxymanager.com) - Reverse proxy with automatic HTTPS
 
 ## Tech stack
 
