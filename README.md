@@ -297,6 +297,8 @@ sudo rsync -av /path/to/data /mnt/backup/
 - **Home Assistant** - Home automation
 - **Nginx Proxy Manager** - Reverse proxy with automatic HTTPS
 
+
+
 ## Obsidian LiveSync (self-hosted vault sync)
 
 A self-hosted alternative to Obsidian Sync, using CouchDB as the backend. Your notes never leave your server.
@@ -450,7 +452,8 @@ This "guide" is provided as-is under the MIT License. Use at your own risk.
 ![Debian](https://img.shields.io/badge/Debian-D70A53?style=for-the-badge&logo=debian&logoColor=white)
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 ![Minecraft](https://img.shields.io/badge/Minecraft-62B47A?style=for-the-badge&logo=minecraft&logoColor=white)
-
+![CouchDB](https://img.shields.io/badge/CouchDB-E42528?style=for-the-badge&logo=apachecouchdb&logoColor=white)
+![Nginx](https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx&logoColor=white)
 ---
 
 **Happy self-hosting, go nuts!**
