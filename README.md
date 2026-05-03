@@ -435,6 +435,75 @@ CouchDB admin:  http://SERVER_IP:5984/_utils
 LiveSync sync:  https://obsidian.yourdomain.com
 ```
 
+## Bot hosting
+
+A lightweight Docker-based environment for running Telegram (and maybe eventually Discord) bots persistently on the server.
+
+### Structure
+```
+/opt/bots/
+    kaliabot/
+        data/      <- SQLite database (persisted via bind mount)
+        .env       <- Bot token and config (never commit this)
+        compose.yaml
+```
+
+### KaliaBot
+
+A Telegram bot that tracks how many beers a group has consumed. Forked from [OliverK03/KaliaBot](https://github.com/OliverK03/KaliaBot) for self-hosting purposes.
+
+**Setup:**
+
+1. Create the directory and clone:
+```bash
+sudo mkdir -p /opt/bots/kaliabot/data
+sudo chown -R $USER:$USER /opt/bots
+cd /opt/bots/kaliabot
+git clone https://github.com/InspectorSpy/KaliaBot.git .
+```
+
+2. Configure environment:
+```bash
+cp .env.example .env
+nano .env # Add BOT_TOKEN, set REPORT_TIMEZONE=UTC (or any valid IANA timezone e.g. Europe/Helsinki)
+```
+
+3. Fix data directory permissions (container runs as UID 10001):
+```bash
+sudo chown -R 10001:10001 data/
+```
+
+4. Start:
+```bash
+docker compose up -d --build
+docker compose logs -f
+```
+
+**`compose.yaml`:**
+```yaml
+services:
+  server:
+    build:
+      context: .
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+```
+
+No ports need to be exposed - the bot uses polling, so no public endpoint or NPM proxy host is required.
+
+### Adding more bots
+
+Each bot gets its own subdirectory under `/opt/bots/` with the same structure.
+Remember to `chown` the `data/` directory to match UID of the container's user if it runs as non-root.
+
+### Access points
+\```
+KaliaBot logs: docker compose -f /opt/bots/kaliabot/compose.yaml logs -f
+\```
+
 ## License
 
 This "guide" is provided as-is under the MIT License. Use at your own risk.
