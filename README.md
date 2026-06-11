@@ -84,6 +84,14 @@ Access CasaOS at: `http://YOUR_SERVER_IP`
 # Interface List -> ensure only WAN port in "WAN" list
 ```
 
+**For Ubiquiti USW-Flex-Mini users (or similar managed switch):**
+```
+# Connect switch uplink to your router
+# Connect server and other devices to switch ports
+# If using UniFi, self-host the Network Application via Docker on your server
+# All ports are on the same flat network by default — no VLAN config needed to get started
+```
+
 ### 4. Install services via CasaOS
 
 Access the CasaOS app store and install:
@@ -500,9 +508,9 @@ Each bot gets its own subdirectory under `/opt/bots/` with the same structure.
 Remember to `chown` the `data/` directory to match UID of the container's user if it runs as non-root.
 
 ### Access points
-\```
+```
 KaliaBot logs: docker compose -f /opt/bots/kaliabot/compose.yaml logs -f
-\```
+```
 
 ## License
 
